@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { MemberListComponent } from './members/member-list/member-list.component';
-import { MemberDetailComponent } from './members/member-detail/member-detail.component';
-import { ListsComponent } from './lists/lists.component';
-import { MessagesComponent } from './messages/messages.component';
+import { HomeComponent } from './components/home/home.component';
+import { MemberListComponent } from './components/members/member-list/member-list.component';
+import { MemberDetailComponent } from './components/members/member-detail/member-detail.component';
+import { ListsComponent } from './components/lists/lists.component';
+import { MessagesComponent } from './components/messages/messages.component';
 import { AuthGuard } from './_guards/auth.guard';
-import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
-import { NotFoundComponent } from './errors/not-found/not-found.component';
-import { ServerErrorComponent } from './errors/server-error/server-error.component';
-import {MemberEditComponent} from './members/member-edit/member-edit.component';
+import { TestErrorsComponent } from './components/errors/test-errors/test-errors.component';
+import { NotFoundComponent } from './components/errors/not-found/not-found.component';
+import { ServerErrorComponent } from './components/errors/server-error/server-error.component';
+import {MemberEditComponent} from './components/members/member-edit/member-edit.component';
 import {PreventUnsavedChangesGuard} from './_guards/prevent-unsaved-changes.guard';
 
 const routes: Routes = [

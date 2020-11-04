@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {MemberModel} from '../../_models/member';
-import {MembersService} from '../../_services/members.service';
+import {MemberModel} from '../../../_models/member';
+import {MembersService} from '../../../_services/members.service';
 import {ActivatedRoute} from '@angular/router';
 import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from '@kolkov/ngx-gallery';
 
