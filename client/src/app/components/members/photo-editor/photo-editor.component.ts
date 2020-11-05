@@ -5,6 +5,8 @@ import {environment} from '../../../../environments/environment';
 import {AccountService} from '../../../_services/account.service';
 import {take} from 'rxjs/operators';
 import {User} from '../../../_models/user';
+import {MembersService} from '../../../_services/members.service';
+import {Photo} from '../../../_models/photo';
 
 @Component({
   selector: 'app-photo-editor',
@@ -18,7 +20,8 @@ export class PhotoEditorComponent implements OnInit {
   baseUrl = environment.apiUrl;
   user: User;
 
-  constructor(private accountService: AccountService) {
+  constructor(private accountService: AccountService,
+              private membersService: MembersService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
 
@@ -28,6 +31,24 @@ export class PhotoEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeUploader();
+  }
+
+  setMainPhoto(photo: Photo) {
+    this.membersService.setMainPhoto(photo.id).subscribe(() => {
+      this.user.photoUrl = photo.url;
+      this.accountService.setCurrentUser(this.user);
+      this.member.photoUrl = photo.url;
+      this.member.photos.forEach(p => {
+        if (p.isMain) { p.isMain = false; }
+        if (p.id === photo.id) { p.isMain = true; }
+      });
+    });
+  }
+
+  deletePhoto(photoId: number) {
+    this.membersService.deleteUserPhoto(photoId).subscribe(() => {
+      this.member.photos = this.member.photos.filter(x => x.id !== photoId);
+    });
   }
 
   initializeUploader() {
