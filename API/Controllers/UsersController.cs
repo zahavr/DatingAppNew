@@ -6,6 +6,7 @@ using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
+using API.Helper;
 using API.Interfaces;
 using AutoMapper;
 using CloudinaryDotNet.Actions;
@@ -31,12 +32,14 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDTO>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<MemberDTO>>> GetUsers([FromQuery]UserParams userParams)
         {
 
-            IEnumerable<MemberDTO> usersToReturn = await _userRepository.GetMembersAsync();
+            PagedList<MemberDTO> users = await _userRepository.GetMembersAsync(userParams);
 
-            return Ok(usersToReturn);
+            Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
+
+            return Ok(users);
         }
 
         [HttpGet("{username}", Name = "GetUser")]
