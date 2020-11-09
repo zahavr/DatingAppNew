@@ -24,7 +24,7 @@ export class AccountService {
           this.currentUserSource.next(user);
         }
       })
-    )
+    );
   }
 
   register(model: any) {
