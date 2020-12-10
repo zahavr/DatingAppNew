@@ -3,6 +3,7 @@ import {MemberModel} from '../../../_models/member';
 import {MembersService} from '../../../_services/members.service';
 import {ActivatedRoute} from '@angular/router';
 import {NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions} from '@kolkov/ngx-gallery';
+import {MemberCardComponent} from '../member-card/member-card.component';
 
 @Component({
   selector: 'app-member-detail',
@@ -50,5 +51,6 @@ export class MemberDetailComponent implements OnInit {
       this.galleryImages = this.getImages();
     });
   }
+
 
 }
