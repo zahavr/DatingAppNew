@@ -34,12 +34,7 @@ namespace API.Controllers
 
             AppUser user = _mapper.Map<AppUser>(registerDto);
 
-            HMACSHA512 hmac = new HMACSHA512();
-
             user.UserName = registerDto.Username.ToLower();
-            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password));
-            user.PasswordSalt = hmac.Key;
-
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
@@ -59,15 +54,6 @@ namespace API.Controllers
             AppUser user = await _userRepository.GetUserByUserNameAsync(loginDto.Username);
 
             if (user == null) return Unauthorized("Invalid username");
-
-            using HMACSHA512 hmac = new HMACSHA512(user.PasswordSalt);
-
-            byte[] computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
-
-            for (int i = 0; i < computedHash.Length; i++)
-            {
-                if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
-            }
 
             return new UserDto
             {
