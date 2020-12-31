@@ -8,6 +8,7 @@ import {TabDirective, TabsetComponent} from 'ngx-bootstrap/tabs';
 import TableDescriptor = WebAssembly.TableDescriptor;
 import {Message} from '../../../_models/message';
 import {MessageService} from '../../../_services/message.service';
+import {PresenceService} from '../../../_services/presence.service';
 
 @Component({
   selector: 'app-member-detail',
@@ -22,7 +23,7 @@ export class MemberDetailComponent implements OnInit {
   activeTab: TabDirective;
   messages: Message[] = [];
 
-  constructor(private membersService: MembersService, private route: ActivatedRoute,
+  constructor(public presenceService: PresenceService, private route: ActivatedRoute,
               private messageService: MessageService) {
   }
 
